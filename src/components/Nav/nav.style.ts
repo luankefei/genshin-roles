@@ -3,19 +3,21 @@ import styled from "@emotion/styled";
 const Header = styled.header`
   height: 40px;
   line-height: 40px;
-  background: #444;
+  // background: #444;
   padding: 0 100px;
+  border-bottom: 1px solid #f5f5f5;
+  box-shadow: 0 0 3px #aaa;
 
   .logo {
     float: left;
-    width: 200px;
-    color: #fff;
+    width: 300px;
+    // color: #fff;
   }
 `;
 
 const Nav = styled.nav`
   display: inline-block;
-  width: 600px;
+  width: 300px;
 
   ul {
     width: 600px;
@@ -27,6 +29,10 @@ const Nav = styled.nav`
     display: inline-block;
     padding: 0 30px;
     cursor: pointer;
+
+    > a {
+      text-decoration: none;
+    }
 
     > span {
       color: #fff;

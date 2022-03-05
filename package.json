@@ -2,25 +2,6 @@
   "name": "genshin-roles",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.8.1",
-    "@emotion/styled": "^11.8.1",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.1.3",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
-    "http-server": "^14.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router": "^6.2.2",
-    "react-router-dom": "^6.2.2",
-    "react-scripts": "5.0.0",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
-  },
   "scripts": {
     "dev": "react-scripts start",
     "build": "react-scripts build",
@@ -33,6 +14,24 @@
       "react-app/jest"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "pages/*.{ts,tsx}": [
+      "prettier --no-semi --single-quote --parser typescript --write",
+      "eslint --fix --ext",
+      "git add"
+    ],
+    "src/**/*.{ts,tsx}": [
+      "prettier --no-semi --single-quote --parser typescript --write",
+      "eslint --fix --ext \"src/*.d.ts\"",
+      "git add"
+    ],
+    "*.{js,css,md}": "prettier --write"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -44,5 +43,27 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.3",
+    "@testing-library/user-event": "^13.2.1",
+    "http-server": "^14.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^6.2.2",
+    "react-router-dom": "^6.2.2",
+    "react-scripts": "5.0.0",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
+    "cz-conventional-changelog": "^3.3.0"
   }
 }

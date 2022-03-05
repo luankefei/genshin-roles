@@ -3,12 +3,12 @@ import { Header, Nav, User } from "./nav.style";
 
 const AdminNav = () => (
   <Header>
-    <div className="logo">管理后台</div>
+    <div className="logo">原神练度工具</div>
     <Nav>
       <ul>
         <li>
           <ActiveLink to="/">
-            <span>登录</span>
+            <span>角色</span>
           </ActiveLink>
         </li>
       </ul>
