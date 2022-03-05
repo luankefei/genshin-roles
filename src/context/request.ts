@@ -61,7 +61,7 @@ class ApiClient {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
+      // credentials: "include",
     };
     let path = url;
 
