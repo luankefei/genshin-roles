@@ -78,6 +78,7 @@ class ApiClient {
 
   constructor() {
     methods.forEach((method) => {
+      // @ts-ignore
       this[method] = (url: string, { params, data, form }: IRequest = {}) =>
         new Promise((resolve, reject) => {
           const request = ApiClient.sendFetchRequest(url, method, params, data, form);
