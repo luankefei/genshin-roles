@@ -15,7 +15,7 @@ const Header = styled.header`
   }
 `;
 
-const Nav = styled.nav`
+const Container = styled.nav`
   display: inline-block;
   width: 300px;
 
@@ -65,4 +65,4 @@ const User = styled.div`
   }
 `;
 
-export { Header, Nav, User };
+export { Header, Container, User };

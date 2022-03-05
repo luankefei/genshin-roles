@@ -5,7 +5,7 @@ import * as React from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import ErrorBoundray from "../ErrorBoundray";
 import Home from "../Home";
-import Nav from "../../components/Nav";
+import Layout from "../../components/Nav";
 
 const App = () => {
   // const { children } = props;
@@ -14,7 +14,7 @@ const App = () => {
     <ErrorBoundray>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<Nav />}>
+          <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
           </Route>
         </Routes>
