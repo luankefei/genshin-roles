@@ -1,24 +1,37 @@
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 
 import { ClientContext } from "../../context/ClientProvider";
-import { Page } from "./home.style";
+import genshinData from "../../utils/data";
+import { Page, Characters } from "./home.style";
 import logo from "./logo.svg";
 
 const Home = () => {
   const client = useContext(ClientContext);
-  console.log("Home", client);
+
+  useEffect(() => {
+    console.log("genshin.dev");
+    client.get("https://api.genshin.dev/characters").then((res) => {
+      console.log("res", res);
+    });
+  });
+
+  const renderCharacterList = () => {
+    return genshinData.characters.map((c) => {
+      const avatar = `${process.env.PUBLIC_URL}/characters/${c}/icon`;
+      return (
+        <li>
+          <img alt={c} src={avatar} />
+          <span>{c}</span>
+        </li>
+      );
+    });
+  };
 
   return (
     <Page>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
+      <Characters>
+        <ul>{renderCharacterList()}</ul>
+      </Characters>
     </Page>
   );
 };

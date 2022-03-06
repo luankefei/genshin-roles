@@ -32,6 +32,7 @@ const Container = styled.nav`
 
     > a {
       text-decoration: none;
+      color: #444;
     }
 
     > span {

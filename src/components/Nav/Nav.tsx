@@ -1,3 +1,4 @@
+import { Outlet } from "react-router";
 import ActiveLink from "../ActiveLink/ActiveLink";
 import { Header, Container, User } from "./nav.style";
 
@@ -12,6 +13,16 @@ const Nav = () => (
               <span>角色</span>
             </ActiveLink>
           </li>
+          <li>
+            <ActiveLink to="/artifact">
+              <span>圣遗物</span>
+            </ActiveLink>
+          </li>
+          <li>
+            <ActiveLink to="/me">
+              <span>我的</span>
+            </ActiveLink>
+          </li>
         </ul>
       </Container>
       <User>
@@ -23,6 +34,7 @@ const Nav = () => (
         />
       </User>
     </Header>
+    <Outlet />
   </div>
 );
 
