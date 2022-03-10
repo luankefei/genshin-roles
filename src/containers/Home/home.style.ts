@@ -28,6 +28,7 @@ export const Characters = styled.div`
   ul {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
     li {
       width: 96px;
