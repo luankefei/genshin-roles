@@ -1,7 +1,7 @@
 /**
  * 通用Modal组件
  */
-import { FC, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { canUseDOM } from "../../utils/safeHTMLElement";
@@ -16,6 +16,7 @@ export type ModalProps = {
 
 const Modal: FC<ModalProps> = (props) => {
   const { visible } = props;
+  const [open, setOpen] = useState(visible);
 
   let node: HTMLElement | null = null;
 
@@ -28,10 +29,15 @@ const Modal: FC<ModalProps> = (props) => {
     document.body.appendChild(node);
   }, []);
 
+  const onClose = () => {
+    setOpen(false);
+    if (props.onClise) props.onClise();
+  };
+
   return createPortal(
-    visible ? (
+    open ? (
       <Wrapper>
-        <CloseButton>
+        <CloseButton onClick={onClose}>
           <img src="/images/close.png" alt="关闭" />
         </CloseButton>
         <Container>
