@@ -12,8 +12,8 @@ const Wrapper = styled.div`
 const Container = styled.div`
   position: fixed;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 100px;
+  transform: translate(-50%, 0);
   background: transparent;
   max-width: 800px;
   max-height: calc(100% - 200px);

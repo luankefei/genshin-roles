@@ -34,7 +34,7 @@ export const CharacterModal = styled.div`
   width: 100%;
   height: 100%;
   background: rgb(30, 41, 59);
-  // background: rgb(226, 232, 240);
+  padding: 20px 0;
 `;
 
 export const Characters = styled.div`
@@ -74,10 +74,13 @@ export const Elements = styled.div`
     li {
       flex: 1;
       flex-grow: 0;
-      padding: 0 5px;
+      padding: 4px;
+      height: 28px;
+      border-radius: 6px;
+      margin: 0 2px;
 
       img {
-        width: 36px;
+        width: 28px;
         height: auto;
       }
     }
@@ -85,12 +88,15 @@ export const Elements = styled.div`
 `;
 
 export const ElementFilter = styled.div`
-  padding-top: 20px;
   margin-bottom: 16px;
   // text-align: center;
 
   ul {
     justify-content: center;
+
+    li.selected {
+      background: rgba(234, 179, 8);
+    }
   }
 `;
 

@@ -10,6 +10,7 @@ import Modal from "../../components/Modal";
 const Home = () => {
   const client = useContext(ClientContext);
   const [visible, setVisible] = useState(false);
+  const [elementFilter, setElementFilter] = useState("");
 
   useEffect(() => {
     console.log("genshin.dev");
@@ -19,7 +20,13 @@ const Home = () => {
   });
 
   const renderCharacterList = () => {
-    return genshinData.characters.map((c) => {
+    let characters = genshinData.characters;
+    if (elementFilter)
+      characters = characters.filter((name) => {
+        const vision = (genshinData.characterMap[name]?.vision || "").toLowerCase();
+        return vision === elementFilter;
+      });
+    return characters.map((c) => {
       const avatar = `${process.env.PUBLIC_URL}/characters/${c}/icon`;
       return (
         <li key={c}>
@@ -36,7 +43,7 @@ const Home = () => {
     const elements = ["anemo", "cryo", "dendro", "electro", "geo", "hydro", "pyro"];
 
     return elements.map((item) => (
-      <li key={item}>
+      <li className={item === elementFilter ? "selected" : ""} data-name={item} key={item}>
         <img src={`/elements/${item}.png`} alt={item} />
       </li>
     ));
@@ -49,6 +56,17 @@ const Home = () => {
 
   const onModalClose = () => {
     setVisible(false);
+    setElementFilter("");
+  };
+
+  const clickElementFilter = (e: any) => {
+    let node = e.target;
+    while (node.nodeName && node.nodeName !== "LI") node = node.parentNode;
+
+    const element = node.dataset.name || "";
+
+    if (elementFilter === element) return setElementFilter("");
+    setElementFilter(node.dataset.name || "");
   };
 
   return (
@@ -65,13 +83,14 @@ const Home = () => {
       <Modal visible={visible} onClose={onModalClose}>
         <CharacterModal>
           <ElementFilter>
-            <Elements>
+            <Elements onClick={clickElementFilter}>
               <ul>{renderElementFilter()}</ul>
             </Elements>
           </ElementFilter>
           <Characters>
             <ul>{renderCharacterList()}</ul>
           </Characters>
+          <button></button>
         </CharacterModal>
       </Modal>
     </Page>
