@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, ReactEventHandler } from "react";
 
 import { ClientContext } from "../../context/ClientProvider";
 import genshinData from "../../utils/data";
@@ -10,6 +10,7 @@ import Modal from "../../components/Modal";
 const Home = () => {
   const client = useContext(ClientContext);
   const [visible, setVisible] = useState(false);
+  const [modalCharacter, setModalCharacter] = useState("");
   const [elementFilter, setElementFilter] = useState("");
 
   useEffect(() => {
@@ -26,11 +27,18 @@ const Home = () => {
         const vision = (genshinData.characterMap[name]?.vision || "").toLowerCase();
         return vision === elementFilter;
       });
-    return characters.map((c) => {
+    return characters.map((c, index) => {
       const avatar = `${process.env.PUBLIC_URL}/characters/${c}/icon`;
+      const bgClassName = "character-bg-" + genshinData.characterMap[c]?.rarity || "4";
       return (
-        <li key={c}>
-          <img alt={c} src={avatar} />
+        <li
+          className={modalCharacter === c ? "selected" : undefined}
+          key={c}
+          onClick={() => clickModalCharacter(c, index)}
+        >
+          <div className={bgClassName}>
+            <img alt={c} src={avatar} />
+          </div>
           <span>{c}</span>
         </li>
       );
@@ -67,6 +75,11 @@ const Home = () => {
 
     if (elementFilter === element) return setElementFilter("");
     setElementFilter(node.dataset.name || "");
+  };
+
+  const clickModalCharacter = (name: string, index: number) => {
+    setModalCharacter(name);
+    console.log("clickModalCharacter", name, index);
   };
 
   return (

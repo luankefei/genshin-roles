@@ -51,6 +51,23 @@ export const Characters = styled.div`
       margin: 5px;
       text-align: center;
       flex-grow: 0;
+      cursor: pointer;
+
+      &.selected {
+        outline: 1px solid #ed4441;
+        border-radius: 6px;
+      }
+
+      .character-bg-5,
+      .character-bg-4 {
+        border-radius: 6px;
+        overflow: hidden;
+        background-image: linear-gradient(to bottom right, #d2832a 20%, #5a3911 85%, rgba(210, 131, 42, 0));
+      }
+
+      .character-bg-4 {
+        background-image: linear-gradient(to bottom right, #7b4faf 20%, #251e4c 85%, rgba(123, 79, 175, 0));
+      }
 
       img {
         width: 80px;
