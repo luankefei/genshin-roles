@@ -11,7 +11,7 @@ export type ModalProps = {
   visible: boolean;
   children: ReactNode;
   showCloseButton?: boolean;
-  onClise?: () => void;
+  onClose?: () => void;
 };
 
 const Modal: FC<ModalProps> = (props) => {
@@ -29,9 +29,13 @@ const Modal: FC<ModalProps> = (props) => {
     document.body.appendChild(node);
   }, []);
 
+  useEffect(() => {
+    if (visible !== open) setOpen(visible);
+  }, [visible]);
+
   const onClose = () => {
     setOpen(false);
-    if (props.onClise) props.onClise();
+    if (props.onClose) props.onClose();
   };
 
   return createPortal(

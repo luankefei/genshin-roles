@@ -10,6 +10,7 @@ export const globalStyles = (
         line-height: 1;
         -webkit-overflow-scrolling: touch;
         margin: 0;
+        background: #f5f5f5;
       }
 
       body {

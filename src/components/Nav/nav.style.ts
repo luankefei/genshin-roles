@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 const Header = styled.header`
   height: 40px;
   line-height: 40px;
-  // background: #444;
-  padding: 0 100px;
+  background: #fff;
+  padding: 0 80px;
   border-bottom: 1px solid #f5f5f5;
   box-shadow: 0 0 3px #aaa;
 
@@ -48,7 +48,7 @@ const Container = styled.nav`
 
 const User = styled.div`
   float: right;
-  width: 100px;
+  width: 80px;
   display: flex;
   align-items: center;
 

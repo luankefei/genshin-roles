@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 export const Page = styled.div`
   padding-top: 80px;
-  text-align: center;
 
   img {
     width: 240px;
@@ -14,6 +13,22 @@ export const Page = styled.div`
     padding-top: 40px;
   }
 `;
+
+export const Header = styled.div`
+  padding: 0 80px;
+
+  .add-character {
+    height: 36px;
+    border: none;
+    font-size: 15px;
+    color: #fff;
+    padding: 0 20px;
+    border-radius: 6px;
+    background: #ed4441;
+  }
+`;
+
+export const Container = styled.div``;
 
 export const CharacterModal = styled.div`
   width: 100%;
@@ -51,13 +66,10 @@ export const Characters = styled.div`
 
 export const Elements = styled.div`
   height: 36px;
-  text-align: center;
-  padding-top: 20px;
-  margin-bottom: 16px;
 
   ul {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
 
     li {
       flex: 1;
@@ -69,6 +81,16 @@ export const Elements = styled.div`
         height: auto;
       }
     }
+  }
+`;
+
+export const ElementFilter = styled.div`
+  padding-top: 20px;
+  margin-bottom: 16px;
+  // text-align: center;
+
+  ul {
+    justify-content: center;
   }
 `;
 
