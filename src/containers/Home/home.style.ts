@@ -76,6 +76,7 @@ export const Characters = styled.div`
 
       span {
         color: rgb(226, 232, 240);
+        line-height: 22px;
       }
     }
   }
