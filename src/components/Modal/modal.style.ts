@@ -15,7 +15,7 @@ const Container = styled.div`
   top: 100px;
   transform: translate(-50%, 0);
   background: transparent;
-  max-width: 800px;
+  width: 550px;
   max-height: calc(100% - 200px);
   flex-direction: column;
   overflow: auto;

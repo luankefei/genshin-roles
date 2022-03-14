@@ -2,16 +2,38 @@ import React, { useEffect, useState, useContext, ReactEventHandler } from "react
 
 import { ClientContext } from "../../context/ClientProvider";
 import genshinData from "../../utils/data";
-import { Page, Header, Container, CharacterModal, Characters, Elements, ElementFilter } from "./home.style";
+import {
+  Page,
+  Header,
+  Container,
+  CharacterModal,
+  Characters,
+  CharacterDetail,
+  Elements,
+  ElementFilter,
+} from "./home.style";
 
 import Modal from "../../components/Modal";
+// import charactersLocale from "../../utils/characters_cn.json";
 // import logo from "./logo.svg";
+
+const DEFAULT_CHARACTER_DETAIL = {
+  name: "aloy",
+  level: 90,
+  talents: { a: 0, e: 0, q: 0 },
+  weapon: "",
+  artifacts: {
+    list: ["平息鳴雷的尊者", "翠綠之影"],
+    primary_attribute: [],
+  },
+};
 
 const Home = () => {
   const client = useContext(ClientContext);
   const [visible, setVisible] = useState(false);
   const [modalCharacter, setModalCharacter] = useState("");
   const [elementFilter, setElementFilter] = useState("");
+  const [characterDetail, setCharacterDetail] = useState({});
 
   useEffect(() => {
     console.log("genshin.dev");
@@ -62,9 +84,11 @@ const Home = () => {
     setVisible(true);
   };
 
+  // TODO: 这里注意一定要清理全部表单状态
   const onModalClose = () => {
     setVisible(false);
     setElementFilter("");
+    setModalCharacter("");
   };
 
   const clickElementFilter = (e: any) => {
@@ -95,15 +119,71 @@ const Home = () => {
 
       <Modal visible={visible} onClose={onModalClose}>
         <CharacterModal>
-          <ElementFilter>
-            <Elements onClick={clickElementFilter}>
-              <ul>{renderElementFilter()}</ul>
-            </Elements>
-          </ElementFilter>
-          <Characters>
-            <ul>{renderCharacterList()}</ul>
-          </Characters>
-          <button></button>
+          {!modalCharacter ? (
+            <>
+              <ElementFilter>
+                <Elements onClick={clickElementFilter}>
+                  <ul>{renderElementFilter()}</ul>
+                </Elements>
+              </ElementFilter>
+              <Characters>
+                <ul>{renderCharacterList()}</ul>
+              </Characters>
+            </>
+          ) : null}
+          {modalCharacter ? (
+            <CharacterDetail>
+              <div
+                className="header"
+                style={{ backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${modalCharacter}.png)` }}
+              >
+                {/* <img src={`https://seelie.inmagi.com/img/characters/bg/${modalCharacter}.png`} alt="card-bg" /> */}
+                <img src={`/characters/${modalCharacter}/icon`} alt={modalCharacter} />
+                <span>{modalCharacter}</span>
+              </div>
+              <dl>
+                <dt>角色信息</dt>
+                <section>
+                  <dd>
+                    <span>等级</span>
+                    <input type="text" placeholder="90" />
+                  </dd>
+                  <dd>
+                    <span>命座</span>
+                    <input type="text" placeholder="0" />
+                  </dd>
+                  <dd className="talent">
+                    <span>天赋</span>
+                    <input type="text" placeholder="0" />
+                    <input type="text" placeholder="0" />
+                    <input type="text" placeholder="0" />
+                  </dd>
+                </section>
+              </dl>
+              <dl>
+                <dt>武器</dt>
+                <section>
+                  <dd>
+                    <img src="" alt="" />
+                    <span>神乐之真意</span>
+                    <input type="text" placeholder="精炼" />
+                    <input type="text" placeholder="白值" />
+                  </dd>
+                </section>
+              </dl>
+              <dl>
+                <dt>圣遗物</dt>
+                <section>
+                  <dd></dd>
+                </section>
+              </dl>
+              <dl>
+                <section className="center last">
+                  <button className="confirm">确认修改</button>
+                </section>
+              </dl>
+            </CharacterDetail>
+          ) : null}
         </CharacterModal>
       </Modal>
     </Page>

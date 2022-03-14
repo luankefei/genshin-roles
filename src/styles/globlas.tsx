@@ -5,6 +5,7 @@ export const globalStyles = (
     styles={css`
       html,
       body {
+        font-size: 16px;
         height: 100%;
         width: 100%;
         line-height: 1;
