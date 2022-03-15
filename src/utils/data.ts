@@ -46,6 +46,7 @@ const characters = [
   "xiao",
   "xingqiu",
   "xinyan",
+  "yae",
   "yanfei",
   "yoimiya",
   "yun-jin",
@@ -5737,6 +5738,23 @@ const characterMap: { [key: string]: CharacterDetail } = {
     ],
     vision_key: "PYRO",
     weapon_type: "POLEARM",
+  },
+  yae: {
+    name: "Yae Miko",
+    vision: "Electro",
+    weapon: "Catalyst",
+    nation: "Inazuma",
+    affiliation: "Grand Narukami Shrine, Yae Publishing House, Youkai",
+    rarity: 5,
+    constellation: "Divina Vulpes",
+    birthday: "0000-06-27",
+    description:
+      "Lady Guuji of the Grand Narukami Shrine also serves as the editor-in-chief of Yae Publishing House. Unimaginable intelligence and cunning are hidden under her beautiful appearance.",
+    skillTalents: [],
+    passiveTalents: [],
+    constellations: [],
+    vision_key: "ELECTRO",
+    weapon_type: "Catalyst",
   },
 };
 
