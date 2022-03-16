@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, ReactEventHandler } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import { ClientContext } from "../../context/ClientProvider";
 import genshinData from "../../utils/data";
@@ -9,6 +9,8 @@ import {
   CharacterModal,
   Characters,
   CharacterDetail,
+  Item,
+  GroupItem,
   Elements,
   ElementFilter,
 } from "./home.style";
@@ -141,7 +143,7 @@ const Home = () => {
                 <img src={`/characters/${modalCharacter}/icon`} alt={modalCharacter} />
                 <span>{modalCharacter}</span>
               </div>
-              <dl>
+              <Item>
                 <dt>角色信息</dt>
                 <section>
                   <dd>
@@ -152,36 +154,57 @@ const Home = () => {
                     <span>命座</span>
                     <input type="text" placeholder="0" />
                   </dd>
-                  <dd className="talent">
+                  <dd className="multi">
                     <span>天赋</span>
                     <input type="text" placeholder="0" />
                     <input type="text" placeholder="0" />
                     <input type="text" placeholder="0" />
                   </dd>
                 </section>
-              </dl>
-              <dl>
+              </Item>
+
+              {/* <GroupItem>
+                <legend>武器</legend>
+                <Item>
+                  <dt>
+                    <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
+                    <span>神乐之真意</span>
+                  </dt>
+                  <dd>
+                    <label htmlFor="">白值</label>
+                    <input type="text" placeholder="0" />
+                  </dd>
+                  <dd>
+                    <label htmlFor="refining">精炼</label>
+                    <input id="refining" type="text" placeholder="1" />
+                  </dd>
+                </Item>
+              </GroupItem> */}
+              <Item>
                 <dt>武器</dt>
                 <section>
-                  <dd>
-                    <img src="" alt="" />
+                  <dd className="multi">
+                    <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
                     <span>神乐之真意</span>
-                    <input type="text" placeholder="精炼" />
-                    <input type="text" placeholder="白值" />
+
+                    <label htmlFor="refining">精炼</label>
+                    <input id="refining" type="text" placeholder="1" />
+                    <label htmlFor="">白值</label>
+                    <input id="attack" type="text" placeholder="0" />
                   </dd>
                 </section>
-              </dl>
-              <dl>
+              </Item>
+              <Item>
                 <dt>圣遗物</dt>
                 <section>
                   <dd></dd>
                 </section>
-              </dl>
-              <dl>
+              </Item>
+              <Item>
                 <section className="center last">
                   <button className="confirm">确认修改</button>
                 </section>
-              </dl>
+              </Item>
             </CharacterDetail>
           ) : null}
         </CharacterModal>
