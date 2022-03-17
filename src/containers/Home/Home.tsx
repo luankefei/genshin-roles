@@ -149,12 +149,12 @@ const Home = () => {
                   <li>套装：如雷2 / 吸能2</li>
                 </ul>
               </td>
-              <td width="20%">
+              <td width="16%">
                 <span>神乐之真意</span>
                 <span>5</span>
                 <span>90</span>
               </td>
-              <td width="8%">60</td>
+              <td width="12%">60</td>
             </tr>
           </table>
         </div>

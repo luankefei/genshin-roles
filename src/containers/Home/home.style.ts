@@ -32,6 +32,7 @@ export const Container = styled.div`
   padding: 0 80px;
 
   table {
+    width: 100%;
     border-collapse: collapse;
 
     tr {
