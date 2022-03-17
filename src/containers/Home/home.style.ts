@@ -28,7 +28,48 @@ export const Header = styled.div`
   }
 `;
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  padding: 0 80px;
+
+  table {
+    border-collapse: collapse;
+
+    tr {
+      height: 80px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 0 12px;
+      text-align: center;
+
+      img {
+        width: 60px;
+        height: auto;
+      }
+
+      &.middle span,
+      img {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 80px;
+      }
+
+      &.left {
+        text-align: left;
+
+        ul {
+          padding: 5px 0;
+        }
+
+        ul li {
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+`;
 
 export const CharacterModal = styled.div`
   width: 100%;

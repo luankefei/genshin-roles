@@ -119,6 +119,47 @@ const Home = () => {
         </Elements>
       </Header>
 
+      <Container>
+        <div>
+          <table>
+            <tr>
+              <th>序号</th>
+              <th>角色</th>
+              <th>等级</th>
+              <th>天赋</th>
+              <th>命座</th>
+              <th>圣遗物（有效词条、充能、套装）</th>
+              <th>武器</th>
+              <th>练度打分（0-100）</th>
+            </tr>
+            <tr>
+              <td width="7%">1</td>
+              <td width="20%" className="left middle">
+                <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
+                <span>八重神子</span>
+              </td>
+              <td width="8%">90</td>
+              <td width="10%">0/9/9</td>
+              <td width="7%">6</td>
+              <td width="20%" className="left">
+                <ul>
+                  <li>有效词条：30.4</li>
+                  <li>主词条：24.5</li>
+                  <li>双爆：160.1</li>
+                  <li>套装：如雷2 / 吸能2</li>
+                </ul>
+              </td>
+              <td width="20%">
+                <span>神乐之真意</span>
+                <span>5</span>
+                <span>90</span>
+              </td>
+              <td width="8%">60</td>
+            </tr>
+          </table>
+        </div>
+      </Container>
+
       <Modal visible={visible} onClose={onModalClose}>
         <CharacterModal>
           {!modalCharacter ? (
