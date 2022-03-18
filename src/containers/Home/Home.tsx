@@ -18,6 +18,7 @@ import {
   // Elements,
   // ElementFilter,
 } from "./home.style";
+import WeaponModal from "../../components/WeaponModal";
 
 // import charactersLocale from "../../utils/characters_cn.json";
 // import logo from "./logo.svg";
@@ -36,7 +37,8 @@ const DEFAULT_CHARACTER_DETAIL = {
 const Home = () => {
   const client = useContext(ClientContext);
   const [characterModalVisible, setCharacterModalVisible] = useState(false);
-  // const [modalCharacter, setModalCharacter] = useState("");
+  const [weaponModalVisible, setWeaponModalVisible] = useState(false);
+  const [modalCharacter, setModalCharacter] = useState("");
   // const [elementFilter, setElementFilter] = useState("");
   // const [characterDetail, setCharacterDetail] = useState({});
   // const [weaponModalVisible, setWeaponModalVisible] = useState(false);
@@ -54,7 +56,16 @@ const Home = () => {
     // setVisible(true);
   };
 
-  const onCharacterModalClose = () => setCharacterModalVisible(false);
+  const onCharacterModalClose = (state?: string) => {
+    if (state === "showWeapon") {
+      setWeaponModalVisible(true);
+    }
+    setCharacterModalVisible(false);
+  };
+
+  const onWeaponModalClose = (state?: string) => {
+    console.log("onWeaponModalClose");
+  };
 
   // TODO: 这里注意一定要清理全部表单状态
   // const onModalClose = () => {
@@ -121,6 +132,7 @@ const Home = () => {
         </div>
       </Container>
       <CharacterModal isOpen={characterModalVisible} onClose={onCharacterModalClose} />
+      <WeaponModal isOpen={weaponModalVisible} character={modalCharacter} onClose={onWeaponModalClose} />
     </Page>
   );
 };

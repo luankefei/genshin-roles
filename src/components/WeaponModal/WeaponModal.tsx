@@ -3,13 +3,19 @@ import Modal from "../../components/Modal";
 import { Container } from "./weapon-modal.style";
 
 type IProps = {
-  visible: boolean;
+  isOpen: boolean;
   character: any;
+  onClose: (state?: string) => void;
 };
 
 const WeaponModal = (props: IProps) => {
-  const { visible, character } = props;
-  // const [weaponModalVisible, setWeaponModalVisible] = useState(false);
+  const { isOpen, character, onClose } = props;
+  const [visible, setVisible] = useState(isOpen);
+
+  useEffect(() => {
+    if (isOpen !== visible) setVisible(isOpen);
+  }, [isOpen]);
+
   return (
     <Modal visible={visible}>
       <Container>

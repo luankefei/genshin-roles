@@ -14,7 +14,7 @@ import {
 
 type IProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (state?: string) => void;
 };
 
 const CharacterModal = (props: IProps) => {
@@ -22,7 +22,7 @@ const CharacterModal = (props: IProps) => {
   const [visible, setVisible] = useState(isOpen);
   const [modalCharacter, setModalCharacter] = useState("");
   const [elementFilter, setElementFilter] = useState("");
-  const [weaponModalVisible, setWeaponModalVisible] = useState(false);
+  // const [weaponModalVisible, setWeaponModalVisible] = useState(false);
 
   useEffect(() => {
     console.log("useEffect", isOpen);
@@ -37,8 +37,9 @@ const CharacterModal = (props: IProps) => {
   };
 
   const showWeaponModal = () => {
+    onClose("showWeapon");
     console.log("showWeaponModal");
-    setWeaponModalVisible(true);
+    // setWeaponModalVisible(true);
 
     // 临时关闭角色窗口
     setVisible(false);
