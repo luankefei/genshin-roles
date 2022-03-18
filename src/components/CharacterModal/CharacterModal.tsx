@@ -14,10 +14,11 @@ import {
 
 type IProps = {
   isOpen: boolean;
+  onClose: () => void;
 };
 
 const CharacterModal = (props: IProps) => {
-  const { isOpen } = props;
+  const { isOpen, onClose } = props;
   const [visible, setVisible] = useState(isOpen);
   const [modalCharacter, setModalCharacter] = useState("");
   const [elementFilter, setElementFilter] = useState("");
@@ -32,6 +33,7 @@ const CharacterModal = (props: IProps) => {
     // setVisible(false);
     setElementFilter("");
     setModalCharacter("");
+    onClose();
   };
 
   const showWeaponModal = () => {

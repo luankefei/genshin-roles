@@ -54,6 +54,8 @@ const Home = () => {
     // setVisible(true);
   };
 
+  const onCharacterModalClose = () => setCharacterModalVisible(false);
+
   // TODO: 这里注意一定要清理全部表单状态
   // const onModalClose = () => {
   // setVisible(false);
@@ -118,7 +120,7 @@ const Home = () => {
           </table>
         </div>
       </Container>
-      <CharacterModal isOpen={characterModalVisible} />
+      <CharacterModal isOpen={characterModalVisible} onClose={onCharacterModalClose} />
     </Page>
   );
 };
