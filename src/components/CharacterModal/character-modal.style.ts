@@ -124,6 +124,10 @@ export const Item = styled.dl`
     border-bottom: 1px solid #475569;
 
     &.multi {
+      > div {
+        cursor: pointer;
+      }
+
       input {
         width: 40px;
       }

@@ -51,14 +51,17 @@ const CharacterModal = (props: IProps) => {
 
   const renderCharacterList = () => {
     let characters = genshinData.characters;
+
     if (elementFilter)
       characters = characters.filter((name) => {
         const vision = (genshinData.characterMap[name]?.vision || "").toLowerCase();
         return vision === elementFilter;
       });
+
     return characters.map((c, index) => {
       const avatar = `${process.env.PUBLIC_URL}/characters/${c}/icon`;
       const bgClassName = "character-bg-" + genshinData.characterMap[c]?.rarity || "4";
+
       return (
         <li
           className={modalCharacter === c ? "selected" : undefined}
@@ -118,9 +121,11 @@ const CharacterModal = (props: IProps) => {
             <Item>
               <dt>武器</dt>
               <section>
-                <dd className="multi" onClick={showWeaponModal}>
-                  <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
-                  <span>神乐之真意</span>
+                <dd className="multi">
+                  <div onClick={showWeaponModal}>
+                    <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
+                    <span>神乐之真意</span>
+                  </div>
 
                   <label htmlFor="refining">精炼</label>
                   <input id="refining" type="text" placeholder="1" />
