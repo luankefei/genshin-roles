@@ -56,8 +56,11 @@ const Home = () => {
     // setVisible(true);
   };
 
-  const onCharacterModalClose = (state?: string) => {
+  const onCharacterModalClose = (state?: string, character?: string) => {
     if (state === "showWeapon") {
+      if (character) {
+        setModalCharacter(character);
+      }
       setWeaponModalVisible(true);
     }
     setCharacterModalVisible(false);

@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import Modal from "../../components/Modal";
-import { Container } from "./weapon-modal.style";
+
+import { weapons, weaponMap } from "../../utils/weapon.data";
+import { Container, WeaponModalDetail, WeaponList } from "./weapon-modal.style";
 
 type IProps = {
   isOpen: boolean;
@@ -14,38 +16,39 @@ const WeaponModal = (props: IProps) => {
 
   useEffect(() => {
     if (isOpen !== visible) setVisible(isOpen);
-  }, [isOpen]);
+  }, [isOpen, visible]);
+
+  const renderWeaponList = () => {
+    return weapons
+      .filter((item) => weaponMap[item])
+      .map((item) => {
+        // console.log(item, weaponMap[item]);
+        const bgClassName = "character-bg-" + weaponMap[item]?.rarity || "4";
+
+        return (
+          <li key={item}>
+            <img className={`icon ${bgClassName}`} src={`/weapons/${item}/icon`} alt={item} />
+            <span>{weaponMap[item].name}</span>
+          </li>
+        );
+      });
+  };
 
   return (
     <Modal visible={visible}>
       <Container>
-        <div
-          className="header"
-          style={{ backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${character}.png)` }}
-        >
-          {/* <img src={`https://seelie.inmagi.com/img/characters/bg/${modalCharacter}.png`} alt="card-bg" /> */}
-          {/* <img src={`/characters/${modalCharacter}/icon`} alt={modalCharacter} />
-          <span>{modalCharacter}</span> */}
-          <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
-          <span>神乐之真意</span>
-        </div>
-
-        <div>
-          <ul>
-            <li>
-              <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
-              <span>神乐之真意</span>
-            </li>
-            <li>
-              <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
-              <span>神乐之真意</span>
-            </li>
-            <li>
-              <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
-              <span>神乐之真意</span>
-            </li>
-          </ul>
-        </div>
+        <WeaponModalDetail>
+          <div
+            className="header"
+            style={{ backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${character}.png)` }}
+          >
+            <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
+            <span>神乐之真意</span>
+          </div>
+          <div>
+            <WeaponList>{renderWeaponList()}</WeaponList>
+          </div>
+        </WeaponModalDetail>
       </Container>
     </Modal>
   );

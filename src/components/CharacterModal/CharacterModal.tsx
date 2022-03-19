@@ -14,7 +14,7 @@ import {
 
 type IProps = {
   isOpen: boolean;
-  onClose: (state?: string) => void;
+  onClose: (state?: string, character?: string) => void;
 };
 
 const CharacterModal = (props: IProps) => {
@@ -22,7 +22,6 @@ const CharacterModal = (props: IProps) => {
   const [visible, setVisible] = useState(isOpen);
   const [modalCharacter, setModalCharacter] = useState("");
   const [elementFilter, setElementFilter] = useState("");
-  // const [weaponModalVisible, setWeaponModalVisible] = useState(false);
 
   useEffect(() => {
     console.log("useEffect", isOpen);
@@ -37,7 +36,7 @@ const CharacterModal = (props: IProps) => {
   };
 
   const showWeaponModal = () => {
-    onClose("showWeapon");
+    onClose("showWeapon", modalCharacter);
     console.log("showWeaponModal");
     // setWeaponModalVisible(true);
 

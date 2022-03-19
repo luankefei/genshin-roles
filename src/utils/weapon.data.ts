@@ -130,7 +130,19 @@ const weapons = [
   "wolf-s-gravestone",
 ];
 
-const weaponMap = {
+interface WeaponDetail {
+  id: string;
+  name: string;
+  type: string;
+  rarity: number;
+  baseAttack?: number;
+  subStat?: string;
+  passiveName?: string;
+  passiveDesc?: string;
+  location?: string;
+}
+
+const weaponMap: { [key: string]: WeaponDetail } = {
   "alley-hunter": {
     id: "alley_hunter",
     name: "暗巷猎手",
@@ -479,8 +491,8 @@ const weaponMap = {
     id: "freedom-sworn",
     name: "苍古自由之誓",
     type: "Sword",
-    rarity: "5",
-    BaseAttack: "46",
+    rarity: 5,
+    baseAttack: 46,
     subStat: "Elemental Mastery",
     passiveName: "Revolutionary Chorale",
     passiveDesc:
@@ -532,7 +544,7 @@ const weaponMap = {
     passiveDesc: "Dealing Elemental DMG increases all DMG by 6% for 6s. Max 2 stacks. Can only occur once every 1s.",
     location: "Crafting",
   },
-  "kaguras-verity": { id: "kaguras-verity", name: "神乐之真意", weaponType: "catalyst" },
+  "kaguras-verity": { id: "kaguras-verity", name: "神乐之真意", type: "catalyst", rarity: 5 },
   "kitain-cross-spear": {
     id: "kitain_cross_spear",
     name: "喜多院十文字",
@@ -677,8 +689,8 @@ const weaponMap = {
     id: "primordial_jade_cutter",
     name: "磐岩结绿",
     type: "Sword",
-    rarity: "5",
-    BaseAttack: "44",
+    rarity: 5,
+    baseAttack: 44,
     subStat: "CRIT Rate",
     passiveName: "Protector's Virtue",
     passiveDesc:
@@ -1049,8 +1061,8 @@ const weaponMap = {
     id: "sword_of_descension",
     name: "降临之剑",
     type: "Sword",
-    rarity: "4",
-    BaseAttack: "39",
+    rarity: 4,
+    baseAttack: 39,
     subStat: "ATK",
     passiveName: "Descension",
     passiveDesc:
