@@ -18,6 +18,12 @@ const WeaponModal = (props: IProps) => {
     if (isOpen !== visible) setVisible(isOpen);
   }, [isOpen, visible]);
 
+  const onModalClose = () => {
+    // setElementFilter("");
+    // setModalCharacter("");
+    onClose();
+  };
+
   const renderWeaponList = () => {
     return weapons
       .filter((item) => weaponMap[item])
@@ -35,7 +41,7 @@ const WeaponModal = (props: IProps) => {
   };
 
   return (
-    <Modal visible={visible}>
+    <Modal visible={visible} onClose={onModalClose}>
       <Container>
         <WeaponModalDetail>
           <div
