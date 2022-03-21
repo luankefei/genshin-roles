@@ -1,7 +1,7 @@
 /**
  * data source from https://api.genshin.dev/characters
  */
-const characters = [
+export const characters = [
   "albedo",
   "aloy",
   "amber",
@@ -74,7 +74,7 @@ interface CharacterDetail {
   outfits?: any[]; // 皮肤
 }
 
-const characterMap: { [key: string]: CharacterDetail } = {
+export const characterMap: { [key: string]: CharacterDetail } = {
   albedo: {
     name: "Albedo",
     vision: "Geo",

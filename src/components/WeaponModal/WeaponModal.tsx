@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Modal from "../../components/Modal";
+// import { IWeaponData } from "../../interface/genshin.type";
 
 import { weapons, weaponMap } from "../../utils/weapon.data";
 import { Container, WeaponModalDetail, WeaponList } from "./weapon-modal.style";
@@ -7,7 +8,7 @@ import { Container, WeaponModalDetail, WeaponList } from "./weapon-modal.style";
 type IProps = {
   isOpen: boolean;
   character: any;
-  onClose: (state?: string) => void;
+  onClose: (state?: string, weapon?: string) => void;
 };
 
 const WeaponModal = (props: IProps) => {
@@ -24,6 +25,11 @@ const WeaponModal = (props: IProps) => {
     onClose();
   };
 
+  const onWeaponClick = (weaponName: string) => () => {
+    console.log("onWeaponClick", weaponName);
+    onClose("onselect", weaponName);
+  };
+
   const renderWeaponList = () => {
     return weapons
       .filter((item) => weaponMap[item])
@@ -32,7 +38,7 @@ const WeaponModal = (props: IProps) => {
         const bgClassName = "character-bg-" + weaponMap[item]?.rarity || "4";
 
         return (
-          <li key={item}>
+          <li key={item} onClick={onWeaponClick(item)}>
             <img className={`icon ${bgClassName}`} src={`/weapons/${item}/icon`} alt={item} />
             <span>{weaponMap[item].name}</span>
           </li>

@@ -20,33 +20,24 @@ import {
 } from "./home.style";
 import WeaponModal from "../../components/WeaponModal";
 
+import { IWeapon, ICharacter } from "../../interface/genshin.type";
+
 // import charactersLocale from "../../utils/characters_cn.json";
 // import logo from "./logo.svg";
 
-const DEFAULT_CHARACTER_DETAIL = {
-  name: "aloy",
-  level: 90,
-  talents: { a: 0, e: 0, q: 0 },
-  weapon: "",
-  artifacts: {
-    list: ["平息鳴雷的尊者", "翠綠之影"],
-    primary_attribute: [],
-  },
-};
-
 const Home = () => {
   const client = useContext(ClientContext);
+  const [character, setCharacter] = useState(null);
+  // const [modalCharacter, setModalCharacter] = useState("");
   const [characterModalVisible, setCharacterModalVisible] = useState(false);
   const [weaponModalVisible, setWeaponModalVisible] = useState(false);
-  const [modalCharacter, setModalCharacter] = useState("");
   // const [elementFilter, setElementFilter] = useState("");
-  // const [characterDetail, setCharacterDetail] = useState({});
   // const [weaponModalVisible, setWeaponModalVisible] = useState(false);
 
   useEffect(() => {
     console.log("genshin.dev");
     client.get("https://api.genshin.dev/characters").then((res) => {
-      console.log("res", res);
+      console.log("api.genshin.dev res count: ", res.length);
     });
   });
 
@@ -56,18 +47,41 @@ const Home = () => {
     // setVisible(true);
   };
 
-  const onCharacterModalClose = (state?: string, character?: string) => {
+  const addCharacter = () => {
+    setCharacter(null);
+    showCharacterModal();
+  };
+
+  const onCharacterModalClose = (state?: string, character?: ICharacter) => {
     console.log("onCharacterModalClose");
+    if (state === "onsubmit" && character) {
+      const obj = JSON.parse(JSON.stringify(character));
+
+      console.log("set character", obj);
+      setCharacter(obj);
+    }
+
     if (state === "showWeapon") {
-      if (character) {
-        setModalCharacter(character);
-      }
       setWeaponModalVisible(true);
     }
     setCharacterModalVisible(false);
   };
 
-  const onWeaponModalClose = (state?: string) => {
+  const onWeaponModalClose = (state?: string, weapon?: string) => {
+    if (state === "onselect" && weapon) {
+      // const obj: IWeapon = JSON.parse(JSON.stringify(DEFAULT_WEAPON_DETAIL));
+
+      // console.log("onWeaponModal close", obj);
+      // obj.name = weapon;
+      // character.weapon = obj;
+
+      setCharacter(character);
+
+      // TODO: 更新列表
+      // setCharacterModalVisible(true);
+      console.log(weapon);
+    }
+
     setWeaponModalVisible(false);
     console.log("onWeaponModalClose");
   };
@@ -79,10 +93,48 @@ const Home = () => {
   // setModalCharacter("");
   // };
 
+  const renderCharacterList = () => {
+    const characters: ICharacter[] = [];
+    return characters.map((c, index) => {
+      const talent = Object.keys(c.talents)
+        .map((k: string) => c.talents[k])
+        .join(" / ");
+
+      return (
+        <tr key={c.en_name}>
+          <td width="7%">{index + 1}</td>
+          <td width="20%" className="left middle">
+            <img className="icon" src={`/characters/${c.en_name}/icon`} alt={c.en_name} />
+            <span>{c.name}</span>
+          </td>
+          <td width="8%">{c.level}</td>
+          <td width="10%">{talent}</td>
+          <td width="7%">{c.constellation}</td>
+          <td width="20%" className="left">
+            <ul>
+              <li>有效词条：{c.artifacts.count}</li>
+              <li>主词条：{c.artifacts.main}</li>
+              <li>双爆：{c.artifacts.critical_score}</li>
+              <li>套装：{c.artifacts.list.join(" / ")}</li>
+            </ul>
+          </td>
+          <td width="16%" className="left">
+            <ul>
+              <li>名称：{c.weapon.name}</li>
+              <li>精炼：{c.weapon.affix}</li>
+              <li>等级：{c.weapon.level}</li>
+            </ul>
+          </td>
+          <td width="12%">{c.score}</td>
+        </tr>
+      );
+    });
+  };
+
   return (
     <Page>
       <Header>
-        <button className="add-character" onClick={showCharacterModal}>
+        <button className="add-character" onClick={addCharacter}>
           添加角色
         </button>
         <div className="element-filter-wrapper">
@@ -105,39 +157,12 @@ const Home = () => {
                 <th>练度打分（0-100）</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td width="7%">1</td>
-                <td width="20%" className="left middle">
-                  <img className="icon" src="/characters/yae/icon" alt="kaguras-verity" />
-                  <span>八重神子</span>
-                </td>
-                <td width="8%">90</td>
-                <td width="10%">0/9/9</td>
-                <td width="7%">6</td>
-                <td width="20%" className="left">
-                  <ul>
-                    <li>有效词条：30.4</li>
-                    <li>主词条：24.5</li>
-                    <li>双爆：160.1</li>
-                    <li>套装：如雷2 / 吸能2</li>
-                  </ul>
-                </td>
-                <td width="16%" className="left">
-                  <ul>
-                    <li>名称：神乐之真意</li>
-                    <li>精炼：5</li>
-                    <li>等级：90</li>
-                  </ul>
-                </td>
-                <td width="12%">60</td>
-              </tr>
-            </tbody>
+            <tbody>{renderCharacterList()}</tbody>
           </table>
         </div>
       </Container>
-      <CharacterModal isOpen={characterModalVisible} onClose={onCharacterModalClose} />
-      <WeaponModal isOpen={weaponModalVisible} character={modalCharacter} onClose={onWeaponModalClose} />
+      <CharacterModal isOpen={characterModalVisible} character={character} onClose={onCharacterModalClose} />
+      <WeaponModal isOpen={weaponModalVisible} character={character} onClose={onWeaponModalClose} />
     </Page>
   );
 };

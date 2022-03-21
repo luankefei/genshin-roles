@@ -42,9 +42,8 @@ export const WeaponList = styled.ul`
     margin: 0 20px;
     overflow: hidden;
     border-bottom: 1px solid rgb(100, 116, 139);
-    // margin-bottom: 1px;
-    // background: rgb(100, 116, 139);
     color: rgba(255, 255, 255, 0.87);
+    cursor: pointer;
 
     .character-bg-5,
     .character-bg-4 {

@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import Modal from "../../components/Modal";
+import Modal from "../Modal";
 import ElementFilter from "../ElementFilter";
-import genshinData from "../../utils/data";
+import { characters, characterMap } from "../../utils/data";
+
+import { ICharacter, IWeapon } from "../../interface/genshin.type";
 import {
   Container,
   // ElementFilter,
@@ -12,15 +14,39 @@ import {
   Item,
 } from "./character-modal.style";
 
+const DEFAULT_WEAPON_DETAIL: IWeapon = {
+  name: "神乐之真意",
+  affix: 5,
+  level: 90,
+};
+
+const DEFAULT_CHARACTER_DETAIL: ICharacter = {
+  en_name: "yae",
+  name: "八重神子",
+  level: 90,
+  talents: { a: 0, e: 9, q: 9 },
+  constellation: 6,
+  weapon: DEFAULT_WEAPON_DETAIL,
+  artifacts: {
+    list: ["平息鳴雷的尊者", "翠綠之影"],
+    primary_attribute: [],
+    critical_score: 106,
+    main: 26.1,
+    count: 26.1,
+  },
+  score: 60,
+};
+
 type IProps = {
   isOpen: boolean;
-  onClose: (state?: string, character?: string) => void;
+  character: ICharacter | null;
+  onClose: (state?: string, character?: ICharacter) => void;
 };
 
 const CharacterModal = (props: IProps) => {
-  const { isOpen, onClose } = props;
+  const { isOpen, character, onClose } = props;
   const [visible, setVisible] = useState(isOpen);
-  const [modalCharacter, setModalCharacter] = useState("");
+  const [modalCharacter, setModalCharacter] = useState(character);
   const [elementFilter, setElementFilter] = useState("");
 
   useEffect(() => {
@@ -28,15 +54,28 @@ const CharacterModal = (props: IProps) => {
     setVisible(isOpen);
   }, [isOpen]);
 
+  useEffect(() => {
+    console.log("character change", character);
+    setModalCharacter(character);
+  }, [character]);
+
   const onModalClose = () => {
     // setVisible(false);
     setElementFilter("");
-    setModalCharacter("");
+    setModalCharacter(null);
     onClose();
   };
 
+  // 确认修改
+  const onSubmit = () => {
+    console.log("onSubmit", character);
+    if (modalCharacter) {
+      onClose("onsubmit", modalCharacter);
+    }
+  };
+
   const showWeaponModal = () => {
-    onClose("showWeapon", modalCharacter);
+    onClose("showWeapon", modalCharacter || undefined);
     console.log("showWeaponModal");
     // setWeaponModalVisible(true);
 
@@ -45,26 +84,45 @@ const CharacterModal = (props: IProps) => {
   };
 
   const clickModalCharacter = (name: string, index: number) => {
-    setModalCharacter(name);
+    const obj: ICharacter = JSON.parse(JSON.stringify(DEFAULT_CHARACTER_DETAIL));
+
+    // en_name: string;
+    // name: string;
+    // level: number;
+    // talents: { [key: string]: number };
+    // constellation: number;
+    // weapon: IWeapon;
+    // artifacts: {
+    //   list: string[];
+    //   primary_attribute: string[];
+    //   critical_score: number;
+    //   main: number;
+    //   count: number;
+    // };
+    // score: number
+    obj.en_name = name;
+    obj.name = characterMap[name].name;
+
+    setModalCharacter(obj);
     console.log("clickModalCharacter", name, index);
   };
 
   const renderCharacterList = () => {
-    let characters = genshinData.characters;
+    let characterList = characters;
 
     if (elementFilter)
-      characters = characters.filter((name) => {
-        const vision = (genshinData.characterMap[name]?.vision || "").toLowerCase();
+      characterList = characters.filter((name: string) => {
+        const vision = (characterMap[name]?.vision || "").toLowerCase();
         return vision === elementFilter;
       });
 
-    return characters.map((c, index) => {
+    return characterList.map((c: string, index: number) => {
       const avatar = `${process.env.PUBLIC_URL}/characters/${c}/icon`;
-      const bgClassName = "character-bg-" + genshinData.characterMap[c]?.rarity || "4";
+      const bgClassName = "character-bg-" + characterMap[c]?.rarity || "4";
 
       return (
         <li
-          className={modalCharacter === c ? "selected" : undefined}
+          className={modalCharacter?.name === c ? "selected" : undefined}
           key={c}
           onClick={() => clickModalCharacter(c, index)}
         >
@@ -93,11 +151,12 @@ const CharacterModal = (props: IProps) => {
           <CharacterDetail>
             <div
               className="header"
-              style={{ backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${modalCharacter}.png)` }}
+              style={{
+                backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${modalCharacter.en_name}.png)`,
+              }}
             >
-              {/* <img src={`https://seelie.inmagi.com/img/characters/bg/${modalCharacter}.png`} alt="card-bg" /> */}
-              <img src={`/characters/${modalCharacter}/icon`} alt={modalCharacter} />
-              <span>{modalCharacter}</span>
+              <img src={`/characters/${modalCharacter.en_name}/icon`} alt={modalCharacter.en_name} />
+              <span>{modalCharacter.name}</span>
             </div>
             <Item>
               <dt>角色信息</dt>
@@ -142,7 +201,9 @@ const CharacterModal = (props: IProps) => {
             </Item>
             <Item>
               <section className="center last">
-                <button className="confirm">确认修改</button>
+                <button className="confirm" onClick={onSubmit}>
+                  确认修改
+                </button>
               </section>
             </Item>
           </CharacterDetail>

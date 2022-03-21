@@ -2,6 +2,8 @@
  * 原神武器相关数据，由多数据源整合
  */
 
+import { IWeaponData } from "../interface/genshin.type";
+
 const weapons = [
   "alley-hunter",
   "amber-catalyst",
@@ -130,19 +132,19 @@ const weapons = [
   "wolf-s-gravestone",
 ];
 
-interface WeaponDetail {
-  id: string;
-  name: string;
-  type: string;
-  rarity: number;
-  baseAttack?: number;
-  subStat?: string;
-  passiveName?: string;
-  passiveDesc?: string;
-  location?: string;
-}
+// interface IWeaponDetail {
+//   id: string;
+//   name: string;
+//   type: string;
+//   rarity: number;
+//   baseAttack?: number;
+//   subStat?: string;
+//   passiveName?: string;
+//   passiveDesc?: string;
+//   location?: string;
+// }
 
-const weaponMap: { [key: string]: WeaponDetail } = {
+const weaponMap: { [key: string]: IWeaponData } = {
   "alley-hunter": {
     id: "alley_hunter",
     name: "暗巷猎手",
