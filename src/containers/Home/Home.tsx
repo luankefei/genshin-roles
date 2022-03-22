@@ -27,7 +27,8 @@ import { IWeapon, ICharacter } from "../../interface/genshin.type";
 
 const Home = () => {
   const client = useContext(ClientContext);
-  const [character, setCharacter] = useState(null);
+  const [character, setCharacter] = useState<ICharacter | null>(null);
+  const [characterList, setCharacterList] = useState<ICharacter[]>([]);
   // const [modalCharacter, setModalCharacter] = useState("");
   const [characterModalVisible, setCharacterModalVisible] = useState(false);
   const [weaponModalVisible, setWeaponModalVisible] = useState(false);
@@ -55,10 +56,15 @@ const Home = () => {
   const onCharacterModalClose = (state?: string, character?: ICharacter) => {
     console.log("onCharacterModalClose");
     if (state === "onsubmit" && character) {
-      const obj = JSON.parse(JSON.stringify(character));
+      const obj: ICharacter = JSON.parse(JSON.stringify(character));
 
       console.log("set character", obj);
       setCharacter(obj);
+      if (characterList.find((c) => c.name === obj.name)) {
+        setCharacterList(characterList.map((item) => (item.name === obj.name ? obj : item)));
+      } else {
+        setCharacterList(characterList.concat([obj]));
+      }
     }
 
     if (state === "showWeapon") {
@@ -86,16 +92,8 @@ const Home = () => {
     console.log("onWeaponModalClose");
   };
 
-  // TODO: 这里注意一定要清理全部表单状态
-  // const onModalClose = () => {
-  // setVisible(false);
-  // setElementFilter("");
-  // setModalCharacter("");
-  // };
-
   const renderCharacterList = () => {
-    const characters: ICharacter[] = [];
-    return characters.map((c, index) => {
+    return (characterList as ICharacter[]).map((c, index) => {
       const talent = Object.keys(c.talents)
         .map((k: string) => c.talents[k])
         .join(" / ");
