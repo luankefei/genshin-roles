@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Modal from "../../components/Modal";
+import { IWeaponData } from "../../interface/genshin.type";
 // import { IWeaponData } from "../../interface/genshin.type";
 
 import { weapons, weaponMap } from "../../utils/weapon.data";
@@ -8,7 +9,7 @@ import { Container, WeaponModalDetail, WeaponList } from "./weapon-modal.style";
 type IProps = {
   isOpen: boolean;
   character: any;
-  onClose: (state?: string, weapon?: string) => void;
+  onClose: (state?: string, weapon?: IWeaponData) => void;
 };
 
 const WeaponModal = (props: IProps) => {
@@ -27,7 +28,7 @@ const WeaponModal = (props: IProps) => {
 
   const onWeaponClick = (weaponName: string) => () => {
     console.log("onWeaponClick", weaponName);
-    onClose("onselect", weaponName);
+    onClose("onselect", weaponMap[weaponName]);
   };
 
   const renderWeaponList = () => {

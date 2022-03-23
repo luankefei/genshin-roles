@@ -20,7 +20,7 @@ import {
 } from "./home.style";
 import WeaponModal from "../../components/WeaponModal";
 
-import { IWeapon, ICharacter } from "../../interface/genshin.type";
+import { ICharacter, IWeaponData } from "../../interface/genshin.type";
 
 // import charactersLocale from "../../utils/characters_cn.json";
 // import logo from "./logo.svg";
@@ -79,12 +79,11 @@ const Home = () => {
     setCharacterModalVisible(false);
   };
 
-  const onWeaponModalClose = (state?: string, weapon?: string) => {
+  const onWeaponModalClose = (state?: string, weapon?: IWeaponData) => {
     console.warn("onWeaponModalClose", state, weapon, character);
     if (state === "onselect" && weapon && character) {
-      const obj: IWeapon = JSON.parse(JSON.stringify(DEFAULT_WEAPON_DETAIL));
-      obj.name = weapon;
-      character.weapon = obj;
+      character.weapon = { ...JSON.parse(JSON.stringify(DEFAULT_WEAPON_DETAIL)), ...weapon };
+      character.weapon.id = character.weapon.id.replaceAll("_", "-");
 
       setCharacter(character);
 
@@ -103,10 +102,10 @@ const Home = () => {
         .join(" / ");
 
       return (
-        <tr key={c.en_name}>
+        <tr key={c.enName}>
           <td width="7%">{index + 1}</td>
           <td width="20%" className="left middle">
-            <img className="icon" src={`/characters/${c.en_name}/icon`} alt={c.en_name} />
+            <img className="icon" src={`/characters/${c.enName}/icon`} alt={c.enName} />
             <span>{c.name}</span>
           </td>
           <td width="8%">{c.level}</td>

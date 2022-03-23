@@ -18,13 +18,14 @@ import {
 } from "./character-modal.style";
 
 export const DEFAULT_WEAPON_DETAIL: IWeapon = {
+  id: "kaguras-verity",
   name: "神乐之真意",
   affix: 5,
   level: 90,
 };
 
 const DEFAULT_CHARACTER_DETAIL: ICharacter = {
-  en_name: "yae",
+  enName: "yae",
   name: "八重神子",
   level: 90,
   talents: { a: 0, e: 9, q: 9 },
@@ -96,7 +97,7 @@ const CharacterModal = (props: IProps) => {
   const clickModalCharacter = (name: string, index: number) => {
     const obj: ICharacter = JSON.parse(JSON.stringify(DEFAULT_CHARACTER_DETAIL));
 
-    // en_name: string;
+    // enName: string;
     // name: string;
     // level: number;
     // talents: { [key: string]: number };
@@ -110,7 +111,7 @@ const CharacterModal = (props: IProps) => {
     //   count: number;
     // };
     // score: number
-    obj.en_name = name;
+    obj.enName = name;
     obj.name = characterMap[name].name;
 
     setModalCharacter(obj);
@@ -166,10 +167,10 @@ const CharacterModal = (props: IProps) => {
             <div
               className="header"
               style={{
-                backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${modalCharacter.en_name}.png)`,
+                backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${modalCharacter.enName}.png)`,
               }}
             >
-              <img src={`/characters/${modalCharacter.en_name}/icon`} alt={modalCharacter.en_name} />
+              <img src={`/characters/${modalCharacter.enName}/icon`} alt={modalCharacter.enName} />
               <span>{modalCharacter.name}</span>
             </div>
             <Item>
@@ -196,8 +197,12 @@ const CharacterModal = (props: IProps) => {
               <section>
                 <dd className="multi">
                   <div onClick={showWeaponModal}>
-                    <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
-                    <span>神乐之真意</span>
+                    <img
+                      className="icon"
+                      src={`/weapons/${modalCharacter.weapon.id}/icon`}
+                      alt={modalCharacter.weapon.name}
+                    />
+                    <span>{modalCharacter.weapon.name}</span>
                   </div>
 
                   <label htmlFor="refining">精炼</label>

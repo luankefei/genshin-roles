@@ -1,4 +1,5 @@
 export interface IWeapon {
+  id: string;
   name: string;
   affix: number;
   level: number;
@@ -17,7 +18,7 @@ export interface IWeaponData {
 }
 
 export interface ICharacter {
-  en_name: string;
+  enName: string;
   name: string;
   level: number;
   talents: { [key: string]: number };
