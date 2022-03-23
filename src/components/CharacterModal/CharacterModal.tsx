@@ -5,6 +5,7 @@ import type { ChangeEvent } from "react";
 import Modal from "../Modal";
 import ElementFilter from "../ElementFilter";
 import { characters, characterMap } from "../../utils/data";
+import { baseSet } from "../../utils";
 
 import { ICharacter, IWeapon } from "../../interface/genshin.type";
 import {
@@ -79,18 +80,7 @@ const CharacterModal = (props: IProps) => {
   // 修改角色字段
   const onCharacterChange = (key: string) => (e: ChangeEvent<HTMLInputElement>) => {
     if (!modalCharacter) return;
-
-    console.log("onCharacterChange", key, e.target.value);
-
-    const keys = keys.split('.')
-    let index = 0
-    while (index === keys.length) {
-      index++
-      if (index)
-
-    }
-
-    (modalCharacter as { [key: string]: any })[key] = e.target.value;
+    baseSet(modalCharacter, key, e.target.value);
   };
 
   const showWeaponModal = () => {
