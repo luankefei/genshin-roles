@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import type { ChangeEvent } from "react";
-import set from 'lodash/set'
+// import set from 'lodash/set'
 
 import Modal from "../Modal";
 import ElementFilter from "../ElementFilter";
