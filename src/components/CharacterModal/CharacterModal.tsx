@@ -180,9 +180,9 @@ const CharacterModal = (props: IProps) => {
                 </dd>
                 <dd className="multi">
                   <span>天赋</span>
-                  <input type="text" placeholder="0" />
-                  <input type="text" placeholder="0" />
-                  <input type="text" placeholder="0" />
+                  <input type="text" placeholder="0" onChange={onCharacterChange("talents.a")} />
+                  <input type="text" placeholder="0" onChange={onCharacterChange("talents.e")} />
+                  <input type="text" placeholder="0" onChange={onCharacterChange("talents.q")} />
                 </dd>
               </section>
             </Item>
