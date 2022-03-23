@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
+import type { ChangeEvent } from "react";
+import set from 'lodash/set'
 
 import Modal from "../Modal";
 import ElementFilter from "../ElementFilter";
@@ -72,6 +74,23 @@ const CharacterModal = (props: IProps) => {
     if (modalCharacter) {
       onClose("onsubmit", modalCharacter);
     }
+  };
+
+  // 修改角色字段
+  const onCharacterChange = (key: string) => (e: ChangeEvent<HTMLInputElement>) => {
+    if (!modalCharacter) return;
+
+    console.log("onCharacterChange", key, e.target.value);
+
+    const keys = keys.split('.')
+    let index = 0
+    while (index === keys.length) {
+      index++
+      if (index)
+
+    }
+
+    (modalCharacter as { [key: string]: any })[key] = e.target.value;
   };
 
   const showWeaponModal = () => {
@@ -163,11 +182,11 @@ const CharacterModal = (props: IProps) => {
               <section>
                 <dd>
                   <span>等级</span>
-                  <input type="text" placeholder="90" />
+                  <input type="text" placeholder="90" onChange={onCharacterChange("level")} />
                 </dd>
                 <dd>
                   <span>命座</span>
-                  <input type="text" placeholder="0" />
+                  <input type="text" placeholder="0" onChange={onCharacterChange("constellation")} />
                 </dd>
                 <dd className="multi">
                   <span>天赋</span>
