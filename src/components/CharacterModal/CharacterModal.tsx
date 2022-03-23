@@ -17,7 +17,7 @@ import {
   Item,
 } from "./character-modal.style";
 
-const DEFAULT_WEAPON_DETAIL: IWeapon = {
+export const DEFAULT_WEAPON_DETAIL: IWeapon = {
   name: "神乐之真意",
   affix: 5,
   level: 90,
@@ -48,6 +48,7 @@ type IProps = {
 
 const CharacterModal = (props: IProps) => {
   const { isOpen, character, onClose } = props;
+  console.log("----------------------------------- character modal render", character);
   const [visible, setVisible] = useState(isOpen);
   const [modalCharacter, setModalCharacter] = useState(character);
   const [elementFilter, setElementFilter] = useState("");
@@ -58,9 +59,9 @@ const CharacterModal = (props: IProps) => {
   }, [isOpen]);
 
   useEffect(() => {
-    console.log("character change", character);
+    console.log("----------------------------------- character change", character);
     setModalCharacter(character);
-  }, [character]);
+  }, [character?.weapon]);
 
   const onModalClose = () => {
     // setVisible(false);
@@ -89,7 +90,7 @@ const CharacterModal = (props: IProps) => {
     // setWeaponModalVisible(true);
 
     // 临时关闭角色窗口
-    setVisible(false);
+    // setVisible(false);
   };
 
   const clickModalCharacter = (name: string, index: number) => {
@@ -113,6 +114,10 @@ const CharacterModal = (props: IProps) => {
     obj.name = characterMap[name].name;
 
     setModalCharacter(obj);
+
+    // 临时保存，将character带回上层，注意这里不会触发关闭
+    onClose("onselect", obj);
+
     console.log("clickModalCharacter", name, index);
   };
 

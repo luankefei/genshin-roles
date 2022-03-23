@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 
 // import Modal from "../../components/Modal";
 import ElementFilter from "../../components/ElementFilter";
-import CharacterModal from "../../components/CharacterModal";
+import CharacterModal, { DEFAULT_WEAPON_DETAIL } from "../../components/CharacterModal";
 
 import { ClientContext } from "../../context/ClientProvider";
 import genshinData from "../../utils/data";
@@ -55,11 +55,16 @@ const Home = () => {
 
   const onCharacterModalClose = (state?: string, character?: ICharacter) => {
     console.log("onCharacterModalClose");
-    if (state === "onsubmit" && character) {
+    // 修改角色数据
+    if ((state === "onsubmit" || state === "onselect") && character) {
       const obj: ICharacter = JSON.parse(JSON.stringify(character));
 
-      console.log("set character", obj);
+      console.log("------------------- set character", obj, state);
       setCharacter(obj);
+
+      // case 1: 不将数据带回列表
+      if (state === "onselect") return;
+
       if (characterList.find((c) => c.name === obj.name)) {
         setCharacterList(characterList.map((item) => (item.name === obj.name ? obj : item)));
       } else {
@@ -67,29 +72,28 @@ const Home = () => {
       }
     }
 
-    if (state === "showWeapon") {
-      setWeaponModalVisible(true);
-    }
+    // 弹出武器浮层
+    if (state === "showWeapon") return setWeaponModalVisible(true);
+
+    // 默认行为：关闭角色浮层
     setCharacterModalVisible(false);
   };
 
   const onWeaponModalClose = (state?: string, weapon?: string) => {
-    if (state === "onselect" && weapon) {
-      // const obj: IWeapon = JSON.parse(JSON.stringify(DEFAULT_WEAPON_DETAIL));
-
-      // console.log("onWeaponModal close", obj);
-      // obj.name = weapon;
-      // character.weapon = obj;
+    console.warn("onWeaponModalClose", state, weapon, character);
+    if (state === "onselect" && weapon && character) {
+      const obj: IWeapon = JSON.parse(JSON.stringify(DEFAULT_WEAPON_DETAIL));
+      obj.name = weapon;
+      character.weapon = obj;
 
       setCharacter(character);
 
       // TODO: 更新列表
       // setCharacterModalVisible(true);
-      console.log(weapon);
     }
 
     setWeaponModalVisible(false);
-    console.log("onWeaponModalClose");
+    // console.log("onWeaponModalClose");
   };
 
   const renderCharacterList = () => {
