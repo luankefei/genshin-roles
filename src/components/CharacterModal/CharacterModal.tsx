@@ -50,18 +50,18 @@ type IProps = {
 
 const CharacterModal = (props: IProps) => {
   const { isOpen, character, onClose } = props;
-  console.log("----------------------------------- character modal render", character);
+  // console.log("----------------------------------- character modal render", character);
   const [visible, setVisible] = useState(isOpen);
   const [modalCharacter, setModalCharacter] = useState(character);
   const [elementFilter, setElementFilter] = useState("");
 
   useEffect(() => {
-    console.log("useEffect", isOpen);
+    // console.log("useEffect", isOpen);
     setVisible(isOpen);
   }, [isOpen]);
 
   useEffect(() => {
-    console.log("----------------------------------- character change", character);
+    // console.log("----------------------------------- character change", character);
     setModalCharacter(character);
   }, [character?.weapon]);
 
@@ -74,7 +74,7 @@ const CharacterModal = (props: IProps) => {
 
   // 确认修改
   const onSubmit = () => {
-    console.log("onSubmit", character);
+    // console.log("onSubmit", character);
     if (modalCharacter) {
       onClose("onsubmit", modalCharacter);
     }
@@ -88,7 +88,7 @@ const CharacterModal = (props: IProps) => {
 
   const showWeaponModal = () => {
     onClose("showWeapon", modalCharacter || undefined);
-    console.log("showWeaponModal");
+    // console.log("showWeaponModal");
     // setWeaponModalVisible(true);
 
     // 临时关闭角色窗口
@@ -121,7 +121,7 @@ const CharacterModal = (props: IProps) => {
     // 临时保存，将character带回上层，注意这里不会触发关闭
     onClose("onselect", obj);
 
-    console.log("clickModalCharacter", name, index);
+    // console.log("clickModalCharacter", name, index);
   };
 
   const renderCharacterList = () => {

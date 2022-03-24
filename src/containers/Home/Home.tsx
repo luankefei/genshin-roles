@@ -36,14 +36,14 @@ const Home = () => {
   // const [weaponModalVisible, setWeaponModalVisible] = useState(false);
 
   useEffect(() => {
-    console.log("genshin.dev");
+    // console.log("genshin.dev");
     client.get("https://api.genshin.dev/characters").then((res) => {
       console.log("api.genshin.dev res count: ", res.length);
     });
   });
 
   const showCharacterModal = () => {
-    console.log("showModal");
+    // console.log("showModal");
     setCharacterModalVisible(true);
     // setVisible(true);
   };
@@ -54,12 +54,12 @@ const Home = () => {
   };
 
   const onCharacterModalClose = (state?: string, character?: ICharacter) => {
-    console.log("onCharacterModalClose");
+    // console.log("onCharacterModalClose");
     // 修改角色数据
     if ((state === "onsubmit" || state === "onselect") && character) {
       const obj: ICharacter = JSON.parse(JSON.stringify(character));
 
-      console.log("------------------- set character", obj, state);
+      // console.log("------------------- set character", obj, state);
       setCharacter(obj);
 
       // case 1: 不将数据带回列表
@@ -70,6 +70,9 @@ const Home = () => {
       } else {
         setCharacterList(characterList.concat([obj]));
       }
+
+      // 3.24 新增将数据同步到 storage
+      localStorage.setItem("characterList", JSON.stringify(characterList));
     }
 
     // 弹出武器浮层
@@ -80,7 +83,7 @@ const Home = () => {
   };
 
   const onWeaponModalClose = (state?: string, weapon?: IWeaponData) => {
-    console.warn("onWeaponModalClose", state, weapon, character);
+    // console.warn("onWeaponModalClose", state, weapon, character);
     if (state === "onselect" && weapon && character) {
       character.weapon = { ...JSON.parse(JSON.stringify(DEFAULT_WEAPON_DETAIL)), ...weapon };
       character.weapon.id = character.weapon.id.replaceAll("_", "-");
