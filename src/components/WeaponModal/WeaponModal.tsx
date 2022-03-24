@@ -33,9 +33,10 @@ const WeaponModal = (props: IProps) => {
 
   // 只显示角色相关武器
   const renderWeaponList = () => {
+    console.log("character?.weaponType", character?.weaponType);
     return weapons
       .filter((item) => weaponMap[item])
-      .filter((item) => weaponMap[item].type === character?.weaponType)
+      .filter((item) => weaponMap[item].type.toLowerCase() === character?.weaponType)
       .map((item) => {
         // console.log(item, weaponMap[item]);
         const bgClassName = "character-bg-" + weaponMap[item]?.rarity || "4";
