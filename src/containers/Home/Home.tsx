@@ -5,6 +5,7 @@ import ElementFilter from "../../components/ElementFilter";
 import CharacterModal, { DEFAULT_WEAPON_DETAIL } from "../../components/CharacterModal";
 
 import { ClientContext } from "../../context/ClientProvider";
+import storage from "../../utils/storage";
 import genshinData from "../../utils/data";
 import {
   Page,
@@ -40,7 +41,11 @@ const Home = () => {
     client.get("https://api.genshin.dev/characters").then((res) => {
       console.log("api.genshin.dev res count: ", res.length);
     });
-  });
+
+    // 从storage中获取数据恢复列表
+    console.log("准备恢复的数据", storage.get("characterList"));
+    setCharacterList(storage.get("characterList") || []);
+  }, []);
 
   const showCharacterModal = () => {
     // console.log("showModal");
@@ -65,14 +70,17 @@ const Home = () => {
       // case 1: 不将数据带回列表
       if (state === "onselect") return;
 
+      let list = [];
       if (characterList.find((c) => c.name === obj.name)) {
-        setCharacterList(characterList.map((item) => (item.name === obj.name ? obj : item)));
+        list = characterList.map((item) => (item.name === obj.name ? obj : item));
       } else {
-        setCharacterList(characterList.concat([obj]));
+        list = characterList.concat([obj]);
       }
 
+      setCharacterList(list);
+
       // 3.24 新增将数据同步到 storage
-      localStorage.setItem("characterList", JSON.stringify(characterList));
+      storage.set("characterList", list);
     }
 
     // 弹出武器浮层

@@ -55,6 +55,11 @@ export const Container = styled.div`
       padding: 0 12px;
       text-align: center;
 
+      &:not(:first-child):not(:last-child):hover {
+        cursor: pointer;
+        background: #fff;
+      }
+
       img {
         width: 60px;
         height: auto;

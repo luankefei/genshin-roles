@@ -2,8 +2,14 @@ function helper(isSession?: boolean) {
   return isSession ? sessionStorage : localStorage;
 }
 
-function getStorage(key: string, isSession?: boolean) {
-  return helper(isSession).getItem(key);
+function getStorage(key: string, isSession?: boolean): any {
+  let data = helper(isSession).getItem(key);
+  try {
+    if (typeof data === "string") data = JSON.parse(data);
+  } catch (e) {
+    console.warn("storage parse error: ", e, key);
+  }
+  return data;
 }
 
 function setStorage(key: string, value: any, isSession?: boolean) {
