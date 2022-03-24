@@ -31,6 +31,7 @@ const DEFAULT_CHARACTER_DETAIL: ICharacter = {
   talents: { a: 0, e: 9, q: 9 },
   constellation: 6,
   weapon: DEFAULT_WEAPON_DETAIL,
+  weaponType: "sword",
   artifacts: {
     list: ["平息鳴雷的尊者", "翠綠之影"],
     primary_attribute: [],
@@ -113,6 +114,7 @@ const CharacterModal = (props: IProps) => {
     // score: number
     obj.enName = name;
     obj.name = characterMap[name].name;
+    obj.weaponType = characterMap[name].weapon_type.toLowerCase();
 
     setModalCharacter(obj);
 

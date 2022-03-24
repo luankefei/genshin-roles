@@ -24,6 +24,7 @@ export interface ICharacter {
   talents: { [key: string]: number };
   constellation: number;
   weapon: IWeapon;
+  weaponType: string;
   artifacts: {
     list: string[];
     primary_attribute: string[];

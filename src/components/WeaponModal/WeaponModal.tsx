@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Modal from "../../components/Modal";
-import { IWeaponData } from "../../interface/genshin.type";
+import { ICharacter, IWeaponData } from "../../interface/genshin.type";
 // import { IWeaponData } from "../../interface/genshin.type";
 
 import { weapons, weaponMap } from "../../utils/weapon.data";
@@ -8,7 +8,7 @@ import { Container, WeaponModalDetail, WeaponList } from "./weapon-modal.style";
 
 type IProps = {
   isOpen: boolean;
-  character: any;
+  character: ICharacter | null;
   onClose: (state?: string, weapon?: IWeaponData) => void;
 };
 
@@ -31,9 +31,11 @@ const WeaponModal = (props: IProps) => {
     onClose("onselect", weaponMap[weaponName]);
   };
 
+  // 只显示角色相关武器
   const renderWeaponList = () => {
     return weapons
       .filter((item) => weaponMap[item])
+      .filter((item) => weaponMap[item].type === character?.weaponType)
       .map((item) => {
         // console.log(item, weaponMap[item]);
         const bgClassName = "character-bg-" + weaponMap[item]?.rarity || "4";
@@ -53,7 +55,9 @@ const WeaponModal = (props: IProps) => {
         <WeaponModalDetail>
           <div
             className="header"
-            style={{ backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${character}.png)` }}
+            style={{
+              backgroundImage: `url(https://seelie.inmagi.com/img/characters/bg/${character && character.enName}.png)`,
+            }}
           >
             <img className="icon" src="/weapons/kaguras-verity/icon" alt="kaguras-verity" />
             <span>神乐之真意</span>
