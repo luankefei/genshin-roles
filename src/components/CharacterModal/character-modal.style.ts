@@ -98,6 +98,7 @@ export const Item = styled.dl`
       width: 40px;
       max-height: 40px;
       margin-left: -10px;
+      margin-right: 10px;
     }
   }
 

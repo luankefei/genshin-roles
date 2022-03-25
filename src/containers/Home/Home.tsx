@@ -53,6 +53,13 @@ const Home = () => {
     // setVisible(true);
   };
 
+  const onTableCellClick = (character: ICharacter, key: string) => () => {
+    setCharacter(character);
+    if (key === "weapon") return console.log("showWeaponModal");
+
+    showCharacterModal();
+  };
+
   const addCharacter = () => {
     setCharacter(null);
     showCharacterModal();
@@ -121,14 +128,20 @@ const Home = () => {
       return (
         <tr key={c.enName}>
           <td width="7%">{index + 1}</td>
-          <td width="20%" className="left middle">
+          <td width="20%" className="left middle" onClick={onTableCellClick(c, "name")}>
             <img className="icon" src={`/characters/${c.enName}/icon`} alt={c.enName} />
             <span>{c.name}</span>
           </td>
-          <td width="8%">{c.level}</td>
-          <td width="10%">{talent}</td>
-          <td width="7%">{c.constellation}</td>
-          <td width="20%" className="left">
+          <td width="8%" onClick={onTableCellClick(c, "level")}>
+            {c.level}
+          </td>
+          <td width="10%" onClick={onTableCellClick(c, "talent")}>
+            {talent}
+          </td>
+          <td width="7%" onClick={onTableCellClick(c, "constellation")}>
+            {c.constellation}
+          </td>
+          <td width="20%" className="left" onClick={onTableCellClick(c, "artifact")}>
             <ul>
               <li>有效词条：{c.artifacts.count}</li>
               <li>主词条：{c.artifacts.main}</li>
@@ -136,14 +149,16 @@ const Home = () => {
               <li>套装：{c.artifacts.list.join(" / ")}</li>
             </ul>
           </td>
-          <td width="16%" className="left">
+          <td width="16%" className="left" onClick={onTableCellClick(c, "weapon")}>
             <ul>
               <li>名称：{c.weapon.name}</li>
               <li>精炼：{c.weapon.affix}</li>
               <li>等级：{c.weapon.level}</li>
             </ul>
           </td>
-          <td width="12%">{c.score}</td>
+          <td width="12%" onClick={onTableCellClick(c, "score")}>
+            {c.score}
+          </td>
         </tr>
       );
     });
