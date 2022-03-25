@@ -16,6 +16,7 @@ import {
   CharacterDetail,
   Item,
 } from "./character-modal.style";
+import weaponMap from "../../utils/weapon.data";
 
 export const DEFAULT_WEAPON_DETAIL: IWeapon = {
   id: "kaguras-verity",
@@ -116,12 +117,20 @@ const CharacterModal = (props: IProps) => {
     obj.name = characterMap[name].name;
     obj.weaponType = characterMap[name].weapon_type.toLowerCase();
 
+    const recommendWeaponName = Object.keys(weaponMap).find(
+      (key) => weaponMap[key].type.toLowerCase() === obj.weaponType
+    );
+    obj.weapon = { ...DEFAULT_WEAPON_DETAIL, ...weaponMap[recommendWeaponName as string] };
+    obj.weapon.id = obj.weapon.id.replaceAll("_", "-");
+
+    console.log(weaponMap[recommendWeaponName as string], obj.weaponType, weaponMap);
+
     setModalCharacter(obj);
 
     // 临时保存，将character带回上层，注意这里不会触发关闭
     onClose("onselect", obj);
 
-    // console.log("clickModalCharacter", name, index);
+    console.log("clickModalCharacter", name, index);
   };
 
   const renderCharacterList = () => {
@@ -217,7 +226,15 @@ const CharacterModal = (props: IProps) => {
             <Item>
               <dt>圣遗物</dt>
               <section>
-                <dd></dd>
+                <dd>
+                  <img
+                    className="icon"
+                    src={`/weapons/${modalCharacter.weapon.id}/icon`}
+                    alt={modalCharacter.weapon.name}
+                  />
+                  <span>{modalCharacter.weapon.name}</span>
+                  <span>[4]</span>
+                </dd>
               </section>
             </Item>
             <Item>
