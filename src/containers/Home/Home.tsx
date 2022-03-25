@@ -58,6 +58,12 @@ const Home = () => {
     showCharacterModal();
   };
 
+  const clearCharacter = () => {
+    setCharacter(null);
+    setCharacterList([]);
+    storage.clear();
+  };
+
   const onCharacterModalClose = (state?: string, character?: ICharacter) => {
     // console.log("onCharacterModalClose");
     // 修改角色数据
@@ -148,6 +154,10 @@ const Home = () => {
       <Header>
         <button className="add-character" onClick={addCharacter}>
           添加角色
+        </button>
+
+        <button className="clear-character" onClick={clearCharacter}>
+          清空角色
         </button>
         <div className="element-filter-wrapper">
           <ElementFilter />

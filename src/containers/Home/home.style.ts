@@ -17,7 +17,8 @@ export const Page = styled.div`
 export const Header = styled.div`
   padding: 0 80px;
 
-  .add-character {
+  .add-character,
+  .clear-character {
     height: 36px;
     border: none;
     font-size: 15px;
@@ -25,6 +26,11 @@ export const Header = styled.div`
     padding: 0 20px;
     border-radius: 6px;
     background: #ed4441;
+  }
+
+  .clear-character {
+    background: rgb(51, 65, 85);
+    margin-left: 20px;
   }
 
   .element-filter-wrapper {
