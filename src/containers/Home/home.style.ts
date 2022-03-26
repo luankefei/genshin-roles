@@ -26,6 +26,7 @@ export const Header = styled.div`
     padding: 0 20px;
     border-radius: 6px;
     background: #ed4441;
+    cursor: pointer;
   }
 
   .clear-character {
