@@ -34,7 +34,7 @@ const DEFAULT_CHARACTER_DETAIL: ICharacter = {
   weapon: DEFAULT_WEAPON_DETAIL,
   weaponType: "sword",
   artifacts: {
-    list: ["平息鳴雷的尊者", "翠綠之影"],
+    list: ["archaic-petra", "adventurer"],
     primary_attribute: [],
     critical_score: 106,
     main: 26.1,
@@ -161,6 +161,19 @@ const CharacterModal = (props: IProps) => {
     });
   };
 
+  const renderArtifactList = () => {
+    return modalCharacter?.artifacts.list.map((item) => {
+      const suffix = modalCharacter?.artifacts.list.length === 1 ? "[4]" : "[2]";
+      return (
+        <dd>
+          <img className="icon" src={`/artifacts/${item}/circlet-of-logos`} alt={item} />
+          <span>{item}</span>
+          <span>{suffix}</span>
+        </dd>
+      );
+    });
+  };
+
   return (
     <Modal visible={visible} onClose={onModalClose}>
       <Container>
@@ -225,17 +238,7 @@ const CharacterModal = (props: IProps) => {
             </Item>
             <Item>
               <dt>圣遗物</dt>
-              <section>
-                <dd>
-                  <img
-                    className="icon"
-                    src={`/weapons/${modalCharacter.weapon.id}/icon`}
-                    alt={modalCharacter.weapon.name}
-                  />
-                  <span>{modalCharacter.weapon.name}</span>
-                  <span>[4]</span>
-                </dd>
-              </section>
+              <section>{renderArtifactList()}</section>
             </Item>
             <Item>
               <section className="center last">
