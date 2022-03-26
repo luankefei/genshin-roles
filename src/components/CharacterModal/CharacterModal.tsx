@@ -5,6 +5,7 @@ import type { ChangeEvent } from "react";
 import Modal from "../Modal";
 import ElementFilter from "../ElementFilter";
 import { characters, characterMap } from "../../utils/data";
+import { artifactMap } from "../../utils/artifact.data";
 import { baseSet } from "../../utils";
 
 import { ICharacter, IWeapon } from "../../interface/genshin.type";
@@ -164,10 +165,11 @@ const CharacterModal = (props: IProps) => {
   const renderArtifactList = () => {
     return modalCharacter?.artifacts.list.map((item) => {
       const suffix = modalCharacter?.artifacts.list.length === 1 ? "[4]" : "[2]";
+      const name = artifactMap[item]?.data?.zh.name;
       return (
         <dd>
           <img className="icon" src={`/artifacts/${item}/circlet-of-logos`} alt={item} />
-          <span>{item}</span>
+          <span>{name}</span>
           <span>{suffix}</span>
         </dd>
       );

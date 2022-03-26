@@ -43,10 +43,28 @@ export const artifacts = [
   "wanderer-s-troupe",
 ];
 
+interface IArtifactData {
+  id: string;
+  type?: string;
+  rarity?: number;
+  data?: {
+    en: {
+      name: string;
+      "2p": string;
+      "4p": string;
+    };
+    zh: {
+      name: string;
+      "2p": string;
+      "4p": string;
+    };
+  };
+}
+
 /**
  * data source from https://github.com/tmdict/genshin-tldr-tmp
  */
-export const artifactMap = {
+export const artifactMap: { [key: string]: IArtifactData } = {
   adventurer: {
     id: "adventurer",
     type: "artifact",

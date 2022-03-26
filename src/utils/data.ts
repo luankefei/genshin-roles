@@ -53,7 +53,7 @@ export const characters = [
   "zhongli",
 ];
 
-interface CharacterDetail {
+interface ICharacterDetail {
   name: string;
   title?: string;
   gender?: string;
@@ -74,7 +74,7 @@ interface CharacterDetail {
   outfits?: any[]; // 皮肤
 }
 
-export const characterMap: { [key: string]: CharacterDetail } = {
+export const characterMap: { [key: string]: ICharacterDetail } = {
   albedo: {
     name: "Albedo",
     vision: "Geo",
