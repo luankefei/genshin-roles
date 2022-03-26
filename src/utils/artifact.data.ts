@@ -43,6 +43,9 @@ export const artifacts = [
   "wanderer-s-troupe",
 ];
 
+/**
+ * data source from https://github.com/tmdict/genshin-tldr-tmp
+ */
 export const artifactMap = {
   adventurer: {
     id: "adventurer",
