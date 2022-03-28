@@ -167,7 +167,7 @@ const CharacterModal = (props: IProps) => {
       const suffix = modalCharacter?.artifacts.list.length === 1 ? "[4]" : "[2]";
       const name = artifactMap[item]?.data?.zh.name;
       return (
-        <dd>
+        <dd key={item}>
           <img className="icon" src={`/artifacts/${item}/circlet-of-logos`} alt={item} />
           <span>{name}</span>
           <span>{suffix}</span>
