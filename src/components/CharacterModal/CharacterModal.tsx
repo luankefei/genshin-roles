@@ -97,6 +97,10 @@ const CharacterModal = (props: IProps) => {
     // setVisible(false);
   };
 
+  const showArtifactModal = () => {
+    console.log("showArtifact");
+  };
+
   const clickModalCharacter = (name: string, index: number) => {
     const obj: ICharacter = JSON.parse(JSON.stringify(DEFAULT_CHARACTER_DETAIL));
 
@@ -167,7 +171,7 @@ const CharacterModal = (props: IProps) => {
       const suffix = modalCharacter?.artifacts.list.length === 1 ? "[4]" : "[2]";
       const name = artifactMap[item]?.data?.zh.name;
       return (
-        <dd key={item}>
+        <dd key={item} onClick={showArtifactModal}>
           <img className="icon" src={`/artifacts/${item}/circlet-of-logos`} alt={item} />
           <span>{name}</span>
           <span>{suffix}</span>
