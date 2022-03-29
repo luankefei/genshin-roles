@@ -20,6 +20,7 @@ import {
   // ElementFilter,
 } from "./home.style";
 import WeaponModal from "../../components/WeaponModal";
+import ArtifactModal from "../../components/ArtifactModal";
 
 import { ICharacter, IWeaponData } from "../../interface/genshin.type";
 
@@ -33,6 +34,7 @@ const Home = () => {
   // const [modalCharacter, setModalCharacter] = useState("");
   const [characterModalVisible, setCharacterModalVisible] = useState(false);
   const [weaponModalVisible, setWeaponModalVisible] = useState(false);
+  const [artifactModalVisible, setArtifactModalVisible] = useState(false);
   // const [elementFilter, setElementFilter] = useState("");
   // const [weaponModalVisible, setWeaponModalVisible] = useState(false);
 
@@ -99,6 +101,9 @@ const Home = () => {
     // 弹出武器浮层
     if (state === "showWeapon") return setWeaponModalVisible(true);
 
+    // 弹出圣遗物浮层
+    if (state === "showArtifact") return setArtifactModalVisible(true);
+
     // 默认行为：关闭角色浮层
     setCharacterModalVisible(false);
   };
@@ -117,6 +122,14 @@ const Home = () => {
 
     setWeaponModalVisible(false);
     // console.log("onWeaponModalClose");
+  };
+
+  const onArtifactModalClose = (state?: string, weapon?: IWeaponData) => {
+    if (state === "onselect" && weapon && character) {
+      console.log("setCharacter");
+    }
+
+    console.log("onArtifactModalClose");
   };
 
   const renderCharacterList = () => {
@@ -200,6 +213,7 @@ const Home = () => {
       </Container>
       <CharacterModal isOpen={characterModalVisible} character={character} onClose={onCharacterModalClose} />
       <WeaponModal isOpen={weaponModalVisible} character={character} onClose={onWeaponModalClose} />
+      <ArtifactModal isOpen={artifactModalVisible} character={character} onClose={onArtifactModalClose} />
     </Page>
   );
 };

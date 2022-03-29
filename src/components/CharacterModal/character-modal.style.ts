@@ -134,6 +134,10 @@ export const Item = styled.dl`
       }
     }
 
+    &.artifact {
+      cursor: pointer;
+    }
+
     span {
       float: left;
       font-size: 16px;

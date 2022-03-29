@@ -97,27 +97,14 @@ const CharacterModal = (props: IProps) => {
     // setVisible(false);
   };
 
-  const showArtifactModal = () => {
-    console.log("showArtifact");
+  const showArtifactModal = (artifact: string) => () => {
+    onClose("showArtifact", modalCharacter || undefined);
+    console.log("showArtifact", artifact);
   };
 
   const clickModalCharacter = (name: string, index: number) => {
     const obj: ICharacter = JSON.parse(JSON.stringify(DEFAULT_CHARACTER_DETAIL));
 
-    // enName: string;
-    // name: string;
-    // level: number;
-    // talents: { [key: string]: number };
-    // constellation: number;
-    // weapon: IWeapon;
-    // artifacts: {
-    //   list: string[];
-    //   primary_attribute: string[];
-    //   critical_score: number;
-    //   main: number;
-    //   count: number;
-    // };
-    // score: number
     obj.enName = name;
     obj.name = characterMap[name].name;
     obj.weaponType = characterMap[name].weapon_type.toLowerCase();
@@ -171,7 +158,7 @@ const CharacterModal = (props: IProps) => {
       const suffix = modalCharacter?.artifacts.list.length === 1 ? "[4]" : "[2]";
       const name = artifactMap[item]?.data?.zh.name;
       return (
-        <dd key={item} onClick={showArtifactModal}>
+        <dd className="artifact" key={item} onClick={showArtifactModal(item)}>
           <img className="icon" src={`/artifacts/${item}/circlet-of-logos`} alt={item} />
           <span>{name}</span>
           <span>{suffix}</span>
